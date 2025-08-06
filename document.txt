@@ -1,0 +1,104 @@
+・データベース作成
+CREATE DATABASES internet_tv_service;
+USE internet_tv_service;
+
+・テーブルの構築
+CREATE TABLE channels(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	name VARCHAR(100) NOT NULL
+);
+CREATE TABLE genres(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	name VARCHAR(100) NOT NULL
+);
+CREATE TABLE programs(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	title VARCHAR(100) NOT NULL,
+	decription TEXT,
+	UNIQUE(title)
+);
+CREATE TABLE program_genres(
+	program_id INT,
+	genre_id INT,
+	PRIMARY KEY (program_id, genre_id),
+	FOREIGN KEY (program_id) REFERENCES programs(id),
+	FOREIGN KEY (genre_id) REFERENCES genres(id)
+);
+CREATE TABLE seasons(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	program_id INT,
+	season_number INT,
+	FOREIGN KEY (program_id) REFERENCES programs(id)
+);
+CREATE TABLE episodes(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	season_id INT NULL,
+	program_id INT,
+	episode_number INT NULL,
+	title VARCHAR(100) NOT NULL,
+	description TEXT,
+	duration INT,
+	release_date DATE,
+	FOREIGN KEY (season_id) REFERENCES seasons(id),
+	FOREIGN KEY (program_id) REFERENCES programs(id)
+);
+CREATE TABLE timeslots(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	channel_id INT,
+	program_id INT,
+	start_itme DATETIME,
+	end_time DATETIME,
+	FOREIGN KEY (channel_id) REFERENCES channels(id),
+	FOREIGN KEY (program_id) REFERENCES programs(id)
+);
+CREATE TABLE view_counts(
+	timeslot_id INT,
+	episode_id INT,
+	views INT DEFAULT 0,
+	PRIMARY KEY (timeslot_id, episode_id),
+	FOREIGN KEY (timeslot_id) REFERENCES timeslots(id),
+	FOREIGN KEY (episode_id) REFERENCES episodes(id)
+);
+・サンプルデータの挿入
+INSERT INTO channels (name) VALUES ('ドラマ'), ('アニメ'), ('スポーツ');
+INSERT INTO genres (name) VALUES ('ドラマ'), ('アニメ'), ('映画'), ('ニュース');
+INSERT INTO programs (title, description) VALUES 
+  ('鬼滅の刃', '鬼狩りの物語'),
+  ('SPY×FAMILY', 'スパイ家族のコメディ');
+
+INSERT INTO program_genres (program_id, genre_id) VALUES 
+  (1, 2),
+  (2, 2);
+
+INSERT INTO seasons (program_id, season_number) VALUES 
+  (1, 1),
+  (2, 1);
+
+INSERT INTO episodes (season_id, program_id, episode_number, title, description, duration, release_date) VALUES 
+  (1, 1, 1, '第一話 残酷', '家族を失った少年の運命', 1500, '2023-01-01'),
+  (2, 2, 1, '第一話 オペレーション開始', '任務と家族のはじまり', 1400, '2023-02-01');
+
+INSERT INTO timeslots (channel_id, program_id, start_time, end_time) VALUES 
+  (2, 1, '2025-08-07 21:00:00', '2025-08-07 21:30:00'),
+  (2, 2, '2025-08-07 21:30:00', '2025-08-07 22:00:00');
+
+INSERT INTO view_counts (timeslot_id, episode_id, views) VALUES 
+  (3, 1, 500000),
+  (4, 2, 450000);
+
+・実行後の確認方法
+-- チャンネル一覧
+SELECT * FROM channels;
+
+-- 番組ごとのジャンル一覧
+SELECT p.title, g.name FROM programs p
+JOIN program_genres pg ON p.id = pg.program_id
+JOIN genres g ON pg.genre_id = g.id;
+
+-- 放送されたエピソードと視聴数
+SELECT t.id AS timeslot_id, p.title AS program_title, e.title AS episode_title, vc.views
+FROM view_counts vc
+JOIN timeslots t ON vc.timeslot_id = t.id
+JOIN episodes e ON vc.episode_id = e.id
+JOIN programs p ON e.program_id = p.id;
+
