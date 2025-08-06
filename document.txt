@@ -90,15 +90,5 @@ INSERT INTO view_counts (timeslot_id, episode_id, views) VALUES
 -- チャンネル一覧
 SELECT * FROM channels;
 
--- 番組ごとのジャンル一覧
-SELECT p.title, g.name FROM programs p
-JOIN program_genres pg ON p.id = pg.program_id
-JOIN genres g ON pg.genre_id = g.id;
 
--- 放送されたエピソードと視聴数
-SELECT t.id AS timeslot_id, p.title AS program_title, e.title AS episode_title, vc.views
-FROM view_counts vc
-JOIN timeslots t ON vc.timeslot_id = t.id
-JOIN episodes e ON vc.episode_id = e.id
-JOIN programs p ON e.program_id = p.id;
 
