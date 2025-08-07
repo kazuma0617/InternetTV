@@ -8,6 +8,7 @@ InternetTV/
 ├── README.md
 ├── document.txt
 └── step3.sql
+```
 
 ## 各ステップの概要
 ### Step1
