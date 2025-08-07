@@ -30,4 +30,12 @@ JOIN episodes ON episodes.program_id = programs.id
 WHERE channels.name = 'ドラマ' AND timeslots.start_time >= CURDATE() AND timeslots.start_time < DATE_ADD(CURDATE(), INTERVAL 7 DAY)
 ORDER BY timeslots.start_time;
 -- 5
+SELECT programs.title, SUM(view_counts.views) AS total_views
+FROM view_counts
+JOIN timeslots ON view_counts.timeslot_id = timeslots.id
+JOIN programs ON timeslots.program_id = programs.id
+WHERE timeslots.start_time >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND timeslots.start_time < CURDATE() + INTERVAL 1 DAY
+GROUP BY programs.id, programs.title
+ORDER BY total_views DESC
+LIMIT 2;
 -- 6
