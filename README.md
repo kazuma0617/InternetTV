@@ -5,9 +5,11 @@
 ```
 InternetTV/
 
+├── ER.png
 ├── README.md
 ├── document.txt
-└── step3.sql
+├── step3.sql
+└── teble_design.md
 ```
 
 ## 各ステップの概要
