@@ -1,5 +1,6 @@
 # テーブル設計
 ## ER図
+![alt text](ER.png)
 ## テーブル定義
 `チャンネル：channels`
 |カラム名|データ型|NULL|キー|初期値|AUTO INCREMENT|
@@ -14,20 +15,20 @@
 |title|varchar(100)|||||
 |description|varchar(100)|||||
 
-`：program_genres`
+`番組ジャンル：program_genres`
 |カラム名|データ型|NULL|キー|初期値|AUTO INCREMENT|
 |---|---|---|---|---|---|
 |program_id|int||primary|||
 |genre_id|int||primary|||
 
-`：seasons`
+`シーズン：seasons`
 |カラム名|データ型|NULL|キー|初期値|AUTO INCREMENT|
 |---|---|---|---|---|---|
 |season_id|int||primary||yes|
 |program_id|int|||||
 |season_number|int|||||
 
-`：episodes`
+`エピソード：episodes`
 |カラム名|データ型|NULL|キー|初期値|AUTO INCREMENT|
 |---|---|---|---|---|---|
 |episode_id|int||primary||yes|
@@ -38,7 +39,7 @@
 |duration|int|yes||||
 |release_date|date|yes||||
 
-`チャンネル：timeslots`
+`番組枠：timeslots`
 |カラム名|データ型|NULL|キー|初期値|AUTO INCREMENT|
 |---|---|---|---|---|---|
 |timeslot_id|int||primary||yes|
