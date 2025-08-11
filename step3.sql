@@ -14,7 +14,7 @@ GROUP BY episodes.id, episodes.title, programs.id, programs.title
 ORDER BY SUM(view_counts.views) DESC
 LIMIT 3;
 -- 3
-SELECT channels.name, timeslots.start_time, timeslots.end_time, (SELECT COUNT(*) FROM seasons WHERE seasons.program_id = programs.id) AS season_count, (SELECT COUNT(*) FROM episodes WHERE episodes.program_id = programs.id) AS episode_count, episodes.title, episodes.title, episodes.description
+SELECT channels.name, timeslots.start_time, timeslots.end_time, (SELECT COUNT(*) FROM seasons WHERE seasons.program_id = programs.id) AS season_count, (SELECT COUNT(*) FROM episodes WHERE episodes.program_id = programs.id) AS episode_count, episodes.title, episodes.description
 FROM timeslots
 JOIN channels ON timeslots.channel_id = channels.id
 JOIN programs ON timeslots.program_id = programs.id
