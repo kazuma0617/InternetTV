@@ -29,7 +29,7 @@
 |program_id|int||primary|||
 |genre_id|int||primary|||
 
-・外部キー制約：program_idに対して、programsテーブルのidカラムから設定
+・外部キー制約：program_idに対して、programsテーブルのidカラムから設定<br>
 ・外部キー制約：genre_idに対して、genresテーブルのidカラムから設定
 
 `シーズン：seasons`
@@ -53,7 +53,7 @@
 |duration|int|yes||||
 |release_date|date|yes||||
 
-・外部キー制約：season_idに対して、seasonsテーブルのidカラムから設定
+・外部キー制約：season_idに対して、seasonsテーブルのidカラムから設定<br>
 ・外部キー制約：program_idに対して、programsテーブルのidカラムから設定
 
 `番組枠：timeslots`
@@ -65,7 +65,7 @@
 |start_time|int||||
 |end_time|int||||
 
-・外部キー制約：channel_idに対して、channelsテーブルのidカラムから設定
+・外部キー制約：channel_idに対して、channelsテーブルのidカラムから設定<br>
 ・外部キー制約：program_idに対して、programsテーブルのidカラムから設定
 
 `視聴数：view_counts`
@@ -75,6 +75,6 @@
 |episode_id|int||primary|||
 |views|int|||0||
 
-・外部キー制約：timeslot_idに対して、timeslotsテーブルのidカラムから設定
+・外部キー制約：timeslot_idに対して、timeslotsテーブルのidカラムから設定<br>
 ・外部キー制約：episode_idに対して、episodesテーブルのidカラムから設定
 
