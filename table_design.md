@@ -1,6 +1,6 @@
 # テーブル設計
 ## ER図
-![alt text](ER.png)
+![ER図](ER.drawio.png)
 ## テーブル定義
 `チャンネル：channels`
 |カラム名|データ型|NULL|キー|初期値|AUTO INCREMENT|
